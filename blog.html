@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post Title - John Doe's Blog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* All the same styles from the blog page */
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #000000;
+            --crimson: #DC143C;
+            --blue: #3B82F6;
+            --dark-bg: #1e1e2f;
+            --purple-bg: #4b0082;
+            --white: #ffffff;
+            --gray: #f9f9f9;
+            --text-dark: #333333;
+            --text-light: #777777;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--gray);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--crimson);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--blue);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--black);
+            color: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-left: 2rem;
+            position: relative;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--crimson);
+        }
+
+        .nav-link.active {
+            color: var(--crimson);
+        }
+
+        .nav-link.active::after,
+        .nav-link:hover::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--crimson);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Single Post Hero */
+        .post-hero {
+            background: linear-gradient(135deg, var(--dark-bg), var(--purple-bg));
+            color: var(--white);
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .post-hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .post-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .post-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .category {
+            background: var(--crimson);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Post Content */
+        .post-content {
+            padding: 4rem 0;
+        }
+
+        .post-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 3rem;
+        }
+
+        .post-body {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .post-body p {
+            margin-bottom: 1.5rem;
+        }
+
+        .post-body h2 {
+            color: var(--crimson);
+            margin-top: 2.5rem;
+        }
+
+        .post-body h3 {
+            margin-top: 2rem;
+        }
+
+        .post-body blockquote {
+            border-left: 4px solid var(--crimson);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--text-light);
+        }
+
+        .post-body img {
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+        }
+
+        .sidebar-widget {
+            margin-bottom: 2.5rem;
+        }
+
+        .sidebar-widget h3 {
+            position: relative;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .sidebar-widget h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--crimson);
+        }
+
+        .recent-posts li {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .recent-posts li:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .recent-posts a {
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .recent-posts a:hover {
+            color: var(--crimson);
+        }
+
+        .recent-posts span {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 0.3rem;
+        }
+
+        .categories li {
+            margin-bottom: 0.8rem;
+        }
+
+        .categories a {
+            display: flex;
+            justify-content: space-between;
+            transition: color 0.3s ease;
+        }
+
+        .categories a:hover {
+            color: var(--crimson);
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .newsletter-form input {
+            padding: 12px 15px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        .newsletter-form button {
+            padding: 12px 15px;
+            background-color: var(--crimson);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .newsletter-form button:hover {
+            background-color: var(--blue);
+        }
+
+        /* Comments Section */
+        .comments-section {
+            padding: 2rem 0 4rem;
+        }
+
+        .comments-container {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .comment {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .comment:last-child {
+            border-bottom: none;
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .comment-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .comment-meta {
+            flex: 1;
+        }
+
+        .comment-author {
+            font-weight: 600;
+        }
+
+        .comment-date {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .comment-body {
+            color: var(--text-dark);
+        }
+
+        .comment-form {
+            margin-top: 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background-color: var(--blue);
+            color: var(--white);
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-btn {
+            background-color: var(--crimson);
+            margin-top: 1.5rem;
+        }
+
+        .cta-btn:hover {
+            background-color: var(--white);
+            color: var(--crimson);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--crimson);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--crimson);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background-color: var(--crimson);
+            transform: translateY(-3px);
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .newsletter-form input {
+            padding: 12px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+        }
+
+        .newsletter-form input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .newsletter-form button {
+            padding: 12px 15px;
+            background-color: var(--crimson);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .newsletter-form button:hover {
+            background-color: var(--blue);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .post-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                flex-direction: column;
+                background-color: var(--black);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                padding: 1rem 0;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-item {
+                margin: 1.5rem 0;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .post-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .post-body {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .post-meta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .cta-content h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">John Doe</a>
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+                <li class="nav-item"><a href="projects.html" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="testimonials.html" class="nav-link">Testimonials</a></li>
+                <li class="nav-item"><a href="blog.html" class="nav-link active">Blog</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Post Hero -->
+    <section class="post-hero">
+        <div class="container">
+            <h1>10 Best Practices for Modern Web Development</h1>
+            <div class="post-meta">
+                <span><i class="far fa-user"></i> John Doe</span>
+                <span><i class="far fa-calendar"></i> May 15, 2023</span>
+                <span class="category">Web Development</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Post Content -->
+    <section class="post-content">
+        <div class="container post-container">
+            <div class="post-body">
+                <p>In the ever-evolving landscape of web development, staying current with best practices is crucial for building websites that are not only functional but also secure, performant, and maintainable. After years of experience in the field, I've compiled this list of essential practices that every developer should follow.</p>
+                
+                <h2>1. Mobile-First Design Approach</h2>
+                <p>With mobile devices accounting for over half of global web traffic, adopting a mobile-first approach is no longer optional. Start by designing for the smallest screens and then progressively enhance the experience for larger devices.</p>
+                <p>This approach forces you to focus on core content and functionality, resulting in cleaner, more efficient code. Use CSS media queries to apply styles for larger breakpoints, and consider using modern CSS features like Flexbox and Grid for responsive layouts.</p>
+                
+                <img src="https://images.unsplash.com/photo-1581276879432-15e50529f34b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Responsive design example">
+                
+                <h2>2. Performance Optimization</h2>
+                <p>Website performance directly impacts user experience and SEO rankings. Optimize images by using modern formats like WebP, implement lazy loading for below-the-fold content, and minimize render-blocking resources.</p>
+                <p>Leverage browser caching, compress assets with Gzip, and consider using a Content Delivery Network (CDN) for global audiences. Regularly audit your site's performance using tools like Lighthouse or WebPageTest.</p>
+                
+                <h2>3. Semantic HTML</h2>
+                <p>Using semantic HTML elements improves accessibility, SEO, and code maintainability. Elements like &lt;header&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;article&gt;, and &lt;footer&gt; provide meaning to your content beyond just presentation.</p>
+                <p>Screen readers and search engines rely on these semantic cues to understand your content structure, making your website more accessible and discoverable.</p>
+                
+                <blockquote>
+                    <p>"The power of the Web is in its universality. Access by everyone regardless of disability is an essential aspect." — Tim Berners-Lee</p>
+                </blockquote>
+                
+                <h2>4. Security Practices</h2>
+                <p>Web security should be a priority from the start of any project. Always use HTTPS to encrypt data in transit, validate and sanitize user input to prevent injection attacks, and implement proper authentication and authorization mechanisms.</p>
+                <p>Keep dependencies updated to patch known vulnerabilities, and use security headers like Content Security Policy (CSP) to mitigate cross-site scripting (XSS) attacks.</p>
+                
+                <h2>5. Version Control with Git</h2>
+                <p>Using version control is non-negotiable in modern web development. Git allows you to track changes, collaborate with others, and revert to previous states when needed.</p>
+                <p>Follow a consistent branching strategy, write descriptive commit messages, and consider using platforms like GitHub or GitLab for hosting your repositories and implementing CI/CD pipelines.</p>
+                
+                <p>By implementing these best practices, you'll create websites that provide better user experiences, rank higher in search results, and are easier to maintain in the long run. Remember that web development is a continuously evolving field, so make learning and adaptation part of your regular routine.</p>
+            </div>
+            
+            <div class="sidebar">
+                <div class="sidebar-widget">
+                    <h3>About Author</h3>
+                    <p>John Doe is a full-stack developer with over 10 years of experience in web development, specializing in creating performant and accessible web applications.</p>
+                </div>
+                
+                <div class="sidebar-widget">
+                    <h3>Recent Posts</h3>
+                    <ul class="recent-posts">
+                        <li>
+                            <a href="blog-single.html">Comparing React, Vue, and Angular in 2023</a>
+                            <span>June 5, 2023</span>
+                        </li>
+                        <li>
+                            <a href="blog-single.html">10 SEO Tips to Improve Your Website Ranking</a>
+                            <span>May 22, 2023</span>
+                        </li>
+                        <li>
+                            <a href="blog-single.html">How to Build a Successful Freelance Career</a>
+                            <span>May 10, 2023</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-widget">
+                    <h3>Categories</h3>
+                    <ul class="categories">
+                        <li><a href="#">Web Development <span>(12)</span></a></li>
+                        <li><a href="#">UI/UX Design <span>(7)</span></a></li>
+                        <li><a href="#">JavaScript <span>(9)</span></a></li>
+                        <li><a href="#">Freelancing <span>(5)</span></a></li>
+                        <li><a href="#">SEO <span>(4)</span></a></li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-widget">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to get the latest updates and resources.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your Email Address" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comments Section -->
+    <section class="comments-section">
+        <div class="container">
+            <h2 class="section-title">Comments (3)</h2>
+            <div class="comments-container">
+                <div class="comment">
+                    <div class="comment-header">
+                        <div class="comment-avatar">
+                            <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Sarah Johnson">
+                        </div>
+                        <div class="comment-meta">
+                            <div class="comment-author">Sarah Johnson</div>
+                            <div class="comment-date">May 17, 2023 at 2:34 PM</div>
+                        </div>
+                    </div>
+                    <div class="comment-body">
+                        <p>Great article! I've been implementing these practices in my projects, and the difference in performance and maintainability is remarkable. The section on semantic HTML is especially important—so many developers overlook this.</p>
+                    </div>
+                </div>
+                
+                <div class="comment">
+                    <div class="comment-header">
+                        <div class="comment-avatar">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen">
+                        </div>
+                        <div class="comment-meta">
+                            <div class="comment-author">Michael Chen</div>
+                            <div class="comment-date">May 16, 2023 at 9:15 AM</div>
+                        </div>
+                    </div>
+                    <div class="comment-body">
+                        <p>Thanks for the comprehensive overview. I'd add that using environment variables for configuration and secrets is another security practice that's essential for modern web development.</p>
+                    </div>
+                </div>
+                
+                <div class="comment">
+                    <div class="comment-header">
+                        <div class="comment-avatar">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Emma Rodriguez">
+                        </div>
+                        <div class="comment-meta">
+                            <div class="comment-author">Emma Rodriguez</div>
+                            <div class="comment-date">May 15, 2023 at 6:42 PM</div>
+                        </div>
+                    </div>
+                    <div class="comment-body">
+                        <p>As a junior developer, this article is incredibly helpful. The mobile-first approach tip has already changed how I approach new projects. Looking forward to more content like this!</p>
+                    </div>
+                </div>
+                
+                <div class="comment-form">
+                    <h3>Leave a Comment</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="comment">Comment</label>
+                            <textarea id="comment" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Post Comment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Want More Tips and Tutorials?</h2>
+                <p>Subscribe to my newsletter and get the latest updates, tutorials, and exclusive content straight to your inbox.</p>
+                <a href="#" class="btn cta-btn">Subscribe Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>John Doe</h3>
+                    <p>Creating beautiful, functional websites that help businesses grow and succeed in the digital world.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="testimonials.html">Testimonials</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Web Development</a></li>
+                        <li><a href="#">UI/UX Design</a></li>
+                        <li><a href="#">Frontend Optimization</a></li>
+                        <li><a href="#">Website Maintenance</a></li>
+                        <li><a href="#">SEO Consulting</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to my newsletter to get updates on web development, design tips, and exclusive content.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your Email Address" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 John Doe. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
